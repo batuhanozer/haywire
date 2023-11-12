@@ -40,3 +40,66 @@ sudo gpasswd -a $USER docker
 newgrp docker
 ```
 
+## vscode
+
+Use the script `install_vscode.sh`.
+
+```bash
+sudo apt-get install wget gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+rm -f packages.microsoft.gpg
+
+sudo apt install apt-transport-https
+sudo apt update
+sudo apt install code # or code-insiders
+```
+
+## terminator
+
+Install terminator.
+
+```bash
+sudo apt install terminator
+```
+
+## chrome
+
+[Download](https://www.google.com/chrome/) and install google chrome.
+
+## zsh & omz
+
+Use the `install_zsh.sh` script to install zsh, omz and two plugins.
+
+```bash
+#!/bin/bash
+sudo apt update
+sudo apt install zsh -y
+
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+chsh -s $(which zsh)
+
+# Backup .zshrc file
+ZSHRC_FILE="$HOME/.zshrc"
+cp $ZSHRC_FILE "$ZSHRC_FILE.bak"
+
+# Change the ZSH theme to 'agnoster'
+sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' $ZSHRC_FILE
+
+# Update the plugins
+sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' $ZSHRC_FILE
+
+# Append new configurations
+echo "HISTFILE=~/.histfile" >> $ZSHRC_FILE
+echo "HISTSIZE=10000" >> $ZSHRC_FILE
+echo "SAVEHIST=10000" >> $ZSHRC_FILE
+
+echo "Updated .zshrc successfully."
+
+# Install powerline fonts
+sudo apt install fonts-powerline -y
+```
