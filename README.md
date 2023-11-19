@@ -2,7 +2,7 @@
 Useful tools and scripts for Ubuntu environment setup.  
 
 ## Documentations  
-- [Ubuntu First Install](docs/Ubuntu&#32;First&#32;Install.md)
+- [Ubuntu First Install](docs/ubuntu_first_install.md)
 
 ## Automated Scripts  
 - [Install docker](scripts/install_docker.sh)
