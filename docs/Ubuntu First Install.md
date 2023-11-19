@@ -40,6 +40,21 @@ sudo gpasswd -a $USER docker
 newgrp docker
 ```
 
+## Nvidia-docker
+
+Install Nvidia docker. So you will be able to run a docker container with nvidia gpu support.
+
+```bash
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
+  sudo apt-key add -
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update
+sudo apt-get install -y nvidia-docker2
+```
+
 ## vscode
 
 Use the script `install_vscode.sh`.
